@@ -1,5 +1,6 @@
 package com.jorcollmar.rickandmorty.data.remote
 
+import com.jorcollmar.rickandmorty.data.remote.model.CharacterDetailsDto
 import com.jorcollmar.rickandmorty.data.remote.model.EpisodesDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,12 +11,12 @@ interface RickAndMortyApi {
     @GET("episode")
     suspend fun getEpisodes(
         @Query("page") page: Int?
-    ) : EpisodesDto
+    ): EpisodesDto
 
     @GET("character/{id}")
     suspend fun getCharacter(
         @Path("id") characterId: Int
-    )
+    ): CharacterDetailsDto
 
     companion object {
         const val BASE_URL = "https://rickandmortyapi.com/api/"

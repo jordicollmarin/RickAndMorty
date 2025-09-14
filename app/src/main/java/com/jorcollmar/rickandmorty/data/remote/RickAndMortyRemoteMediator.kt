@@ -28,7 +28,13 @@ class RickAndMortyRemoteMediator(
                 LoadType.REFRESH -> FIRST_PAGE
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
-                    rickAndMortyDatabase.getPagingDao().getNext(PAGING_KEY)
+                    val nextPage = rickAndMortyDatabase.getPagingDao().getNext(PAGING_KEY)
+
+                    if (nextPage == null) {
+                        return MediatorResult.Success(endOfPaginationReached = true)
+                    }
+
+                    nextPage
                 }
             }
 
@@ -42,12 +48,10 @@ class RickAndMortyRemoteMediator(
                     rickAndMortyDatabase.getPagingDao().clearPaging()
                 }
 
-                rickAndMortyDatabase.getEpisodeDao()
-                    .addEpisodes(episodes.map {
-                        it.toEpisodeEntity()
-                    })
-
                 rickAndMortyDatabase.getPagingDao().addPaging(pagingDto.toPagingEntity())
+
+                rickAndMortyDatabase.getEpisodeDao()
+                    .addEpisodes(episodes.map { it.toEpisodeEntity() })
             }
 
             MediatorResult.Success(endOfPaginationReached = pagingDto.next == null)
