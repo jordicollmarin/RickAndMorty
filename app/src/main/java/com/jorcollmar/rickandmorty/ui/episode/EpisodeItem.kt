@@ -20,6 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jorcollmar.rickandmorty.domain.model.Episode
 import com.jorcollmar.rickandmorty.ui.theme.RickAndMortyTheme
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+private const val AIR_DATE_FORMAT = "dd/MM/yyyy"
 
 @Composable
 fun EpisodeItem(
@@ -44,9 +48,10 @@ fun EpisodeItem(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
                 )
-                // TODO Formatting - Show date in dd/mm/yyyy
                 Text(
-                    text = episode.airDate,
+                    text = episode.airDate.format(
+                        DateTimeFormatter.ofPattern(AIR_DATE_FORMAT)
+                    ).toString(),
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
@@ -62,7 +67,7 @@ fun EpisodeItemPreview() {
             episode = Episode(
                 id = 1,
                 name = "Pilot",
-                airDate = "December 2, 2013",
+                airDate = LocalDate.now(),
                 code = "S01E01",
                 characters = listOf("Character 1", "Character 2")
             ),

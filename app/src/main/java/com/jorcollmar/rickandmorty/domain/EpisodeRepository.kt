@@ -3,7 +3,7 @@ package com.jorcollmar.rickandmorty.domain
 import androidx.paging.Pager
 import androidx.paging.map
 import com.jorcollmar.rickandmorty.data.local.episodes.EpisodeEntity
-import com.jorcollmar.rickandmorty.data.mapper.toEpisode
+import com.jorcollmar.rickandmorty.domain.mapper.toEpisode
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 

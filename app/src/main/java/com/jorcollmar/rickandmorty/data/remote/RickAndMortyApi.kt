@@ -20,5 +20,6 @@ interface RickAndMortyApi {
 
     companion object {
         const val BASE_URL = "https://rickandmortyapi.com/api/"
+        const val EPISODE_AIR_DATE_API_FORMAT = "MMMM d, yyyy"
     }
 }

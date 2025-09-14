@@ -31,6 +31,7 @@ import com.jorcollmar.rickandmorty.R
 import com.jorcollmar.rickandmorty.domain.model.Episode
 import com.jorcollmar.rickandmorty.ui.theme.RickAndMortyTheme
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.LocalDate
 
 @Composable
 fun EpisodesListScreen(
@@ -107,9 +108,9 @@ fun EndWarning() {
 @Composable
 fun EpisodesListPreview() {
     val fakeData = listOf(
-        Episode(1, "Pilot", "December 2, 2013", "S01E01", listOf("Character 1", "Character 2")),
-        Episode(2, "Test 1", "December 2, 2014", "S01E02", listOf("Character 1", "Character 2")),
-        Episode(3, "Test 2", "December 7, 2016", "S01E03", listOf("Character 1", "Character 2")),
+        Episode(1, "Pilot", LocalDate.now(), "S01E01", listOf("Character 1", "Character 2")),
+        Episode(2, "Test 1", LocalDate.now(), "S01E02", listOf("Character 1", "Character 2")),
+        Episode(3, "Test 2", LocalDate.now(), "S01E03", listOf("Character 1", "Character 2")),
     )
     val pagingData = PagingData.from(fakeData)
     val fakeDataFlow = MutableStateFlow(pagingData)
