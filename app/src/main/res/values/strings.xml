@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
+
+    <string name="episodes_list_no_more_episodes">No more episodes</string>
 </resources>

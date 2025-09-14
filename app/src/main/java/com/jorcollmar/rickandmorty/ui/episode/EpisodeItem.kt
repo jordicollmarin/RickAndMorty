@@ -1,0 +1,72 @@
+package com.jorcollmar.rickandmorty.ui.episode
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.jorcollmar.rickandmorty.domain.model.Episode
+import com.jorcollmar.rickandmorty.ui.theme.RickAndMortyTheme
+
+@Composable
+fun EpisodeItem(
+    episode: Episode,
+    modifier: Modifier = Modifier
+) {
+    Card(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Max)
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(3f)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                val title by remember { mutableStateOf("${episode.code} - ${episode.name}") }
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                // TODO Formatting - Show date in dd/mm/yyyy
+                Text(
+                    text = episode.airDate,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun EpisodeItemPreview() {
+    RickAndMortyTheme {
+        EpisodeItem(
+            episode = Episode(
+                id = 1,
+                name = "Pilot",
+                airDate = "December 2, 2013",
+                code = "S01E01",
+                characters = listOf("Character 1", "Character 2")
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
