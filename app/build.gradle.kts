@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -77,7 +78,8 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit)
-    implementation(libs.retrofit.gson.converter)
+    implementation(libs.retrofit.json)
+    implementation(libs.retrofit.converter)
 
     // Room
     ksp(libs.androidx.room.compiler)
