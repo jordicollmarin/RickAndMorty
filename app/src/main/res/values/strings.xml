@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
+    <string name="back">Back</string>
 
     <string name="episodes_list_no_more_episodes">No more episodes</string>
+    <string name="episodes_list_air_date_not_available">Air date not available</string>
+
+    <string name="character_list_character_label">Character</string>
+
+    <string name="character_details_image_content_description">Character image</string>
+    <string name="character_details_share_character_details">Share character details</string>
+    <plurals name="character_details_episodes_count">
+        <item quantity="one">You can see me in %1$d episode!</item>
+        <item quantity="other">You can see me in %1$d episodes!</item>
+    </plurals>
+    <string name="character_details_error">There was an error loading the character details!</string>
 </resources>
