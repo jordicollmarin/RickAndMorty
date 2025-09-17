@@ -1,4 +1,4 @@
-package com.jorcollmar.rickandmorty.data.mapper
+package com.jorcollmar.rickandmorty.domain.mapper
 
 import com.jorcollmar.rickandmorty.data.remote.model.CharacterDetailsDto
 import com.jorcollmar.rickandmorty.domain.model.Character

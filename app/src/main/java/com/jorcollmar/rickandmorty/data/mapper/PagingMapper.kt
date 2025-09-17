@@ -7,5 +7,5 @@ import com.jorcollmar.rickandmorty.data.remote.model.PagingDto
 fun PagingDto.toPagingEntity() = PagingEntity(
     id = PAGING_KEY,
     next = next?.last()?.digitToInt(),
-    prev = next?.last()?.digitToInt()
+    prev = prev?.last()?.digitToInt()
 )

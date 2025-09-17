@@ -1,6 +1,6 @@
 package com.jorcollmar.rickandmorty.domain
 
-import com.jorcollmar.rickandmorty.data.mapper.toCharacter
+import com.jorcollmar.rickandmorty.domain.mapper.toCharacter
 import com.jorcollmar.rickandmorty.data.remote.RickAndMortyApi
 import com.jorcollmar.rickandmorty.domain.model.Character
 import kotlinx.coroutines.flow.Flow
