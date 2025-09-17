@@ -5,8 +5,16 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 object Date {
-    fun stringToDate(value: String, pattern: String): LocalDate {
-        val formatter = DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH)
-        return LocalDate.parse(value, formatter)
+    fun stringToLocalDate(value: String, pattern: String): LocalDate? {
+        return try {
+            if (value.isNotEmpty()) {
+                val formatter = DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH)
+                LocalDate.parse(value, formatter)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
     }
 }

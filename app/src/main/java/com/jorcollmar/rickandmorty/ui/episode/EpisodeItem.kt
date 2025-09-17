@@ -49,9 +49,9 @@ fun EpisodeItem(
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Text(
-                    text = episode.airDate.format(
+                    text = episode.airDate?.format(
                         DateTimeFormatter.ofPattern(AIR_DATE_FORMAT)
-                    ).toString(),
+                    ) ?: stringResource(R.string.episodes_list_air_date_not_available),
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
@@ -67,7 +67,7 @@ fun EpisodeItemPreview() {
             episode = Episode(
                 id = 1,
                 name = "Pilot",
-                airDate = LocalDate.now(),
+                airDate = null,
                 code = "S01E01",
                 characters = listOf(1, 2)
             ),
