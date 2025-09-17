@@ -7,5 +7,5 @@ data class Episode(
     val name: String,
     val airDate: LocalDate,
     val code: String,
-    val characters: List<String>
+    val characters: List<Int>
 )

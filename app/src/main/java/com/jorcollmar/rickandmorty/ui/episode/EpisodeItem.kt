@@ -69,7 +69,7 @@ fun EpisodeItemPreview() {
                 name = "Pilot",
                 airDate = LocalDate.now(),
                 code = "S01E01",
-                characters = listOf("Character 1", "Character 2")
+                characters = listOf(1, 2)
             ),
             modifier = Modifier.fillMaxWidth()
         )

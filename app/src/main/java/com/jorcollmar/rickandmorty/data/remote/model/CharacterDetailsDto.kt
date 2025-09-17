@@ -15,6 +15,6 @@ data class CharacterDetailsDto(
 
 @Serializable
 data class OriginDetailsDto(
-    val id: Int,
     val name: String,
+    val url: String,
 )
