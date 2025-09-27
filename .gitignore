@@ -3,7 +3,7 @@
 /local.properties
 
 # Ignore Android Studio files.
-/.idea/*
+/.idea/
 
 .DS_Store
 /build
