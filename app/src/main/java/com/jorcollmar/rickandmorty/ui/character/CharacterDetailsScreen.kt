@@ -19,11 +19,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -41,7 +45,6 @@ import coil.request.ImageRequest
 import com.jorcollmar.rickandmorty.R
 import com.jorcollmar.rickandmorty.RickAndMortyViewModel
 import com.jorcollmar.rickandmorty.domain.model.Character
-import com.jorcollmar.rickandmorty.ui.RickAndMortyUiState
 import com.jorcollmar.rickandmorty.ui.theme.RickAndMortyTheme
 
 private const val IMAGE_SIZE = 300
@@ -57,10 +60,12 @@ fun CharacterDetailsScreen(
     onExportCharacterClick: (Character) -> Unit,
 ) {
     viewModel.loadCharacterDetails(characterId)
+    val snackBarHostState = remember { SnackbarHostState() }
+    val snackBarErrorText = stringResource(R.string.character_details_export_error)
     val uiStateCharacter by viewModel.uiStateCharacter.collectAsStateWithLifecycle()
 
     when (uiStateCharacter) {
-        is RickAndMortyUiState.Error -> Box(
+        is CharacterDetailsUiState.LoadingError -> Box(
             modifier = Modifier.fillMaxSize()
         ) {
             Column(modifier = Modifier.align(Alignment.Center)) {
@@ -79,7 +84,13 @@ fun CharacterDetailsScreen(
             }
         }
 
-        is RickAndMortyUiState.Loading -> Box(
+        is CharacterDetailsUiState.ExportError -> {
+            LaunchedEffect(Unit) {
+                snackBarHostState.showSnackbar(message = snackBarErrorText)
+            }
+        }
+
+        is CharacterDetailsUiState.Loading -> Box(
             modifier = Modifier.fillMaxSize()
         ) {
             CircularProgressIndicator(
@@ -87,10 +98,11 @@ fun CharacterDetailsScreen(
             )
         }
 
-        is RickAndMortyUiState.Success -> {
-            val character = (uiStateCharacter as RickAndMortyUiState.Success).character
+        is CharacterDetailsUiState.Success -> {
+            val character = (uiStateCharacter as CharacterDetailsUiState.Success).character
 
             Scaffold(
+                snackbarHost = { SnackbarHost(snackBarHostState) },
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
                     TopAppBar(

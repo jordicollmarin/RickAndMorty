@@ -17,4 +17,5 @@
         <item quantity="other">You can see me in %1$d episodes!</item>
     </plurals>
     <string name="character_details_error">There was an error loading the character details!</string>
+    <string name="character_details_export_error">There was an error exporting the character details!</string>
 </resources>
