@@ -1,6 +1,5 @@
 package com.jorcollmar.rickandmorty.ui.episode
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,16 +13,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,23 +51,35 @@ fun EpisodesListScreen(
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val context = LocalContext.current
+    val snackBarHostState = remember { SnackbarHostState() }
+    val snackBarRetryText = stringResource(R.string.episodes_list_retry)
+    val snackBarHttpErrorText = stringResource(R.string.episodes_list_http_error)
+    val snackBarUnknownErrorText = stringResource(R.string.episodes_list_unknown_error)
 
     LaunchedEffect(key1 = pagingItems.loadState) {
         if (pagingItems.loadState.refresh is LoadState.Error) {
             val errorMessage = when ((pagingItems.loadState.refresh as LoadState.Error).error) {
-                is HttpException -> "There was an HTTP issue"
-                else -> "There was an unknown error"
+                is HttpException -> snackBarHttpErrorText
+                else -> snackBarUnknownErrorText
             }
-            Toast.makeText(
-                context,
-                "Error: $errorMessage. Pull down the screen to refresh",
-                Toast.LENGTH_LONG
-            ).show()
+            val result = snackBarHostState.showSnackbar(
+                message = errorMessage,
+                actionLabel = snackBarRetryText
+            )
+            when (result) {
+                SnackbarResult.ActionPerformed -> {
+                    onPullToRefresh()
+                }
+
+                SnackbarResult.Dismissed -> {
+                    /* dismissed, no action needed */
+                }
+            }
         }
     }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),

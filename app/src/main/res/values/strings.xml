@@ -4,6 +4,9 @@
 
     <string name="episodes_list_no_more_episodes">No more episodes</string>
     <string name="episodes_list_air_date_not_available">Air date not available</string>
+    <string name="episodes_list_retry">Retry</string>
+    <string name="episodes_list_http_error">There was an HTTP issue</string>
+    <string name="episodes_list_unknown_error">There was an unknown error</string>
 
     <string name="character_list_character_label">Character</string>
 
