@@ -3,7 +3,6 @@ package com.jorcollmar.rickandmorty.ui.episode
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -44,7 +43,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EpisodesListScreen(
-    episodes: LazyPagingItems<Episode>,
+    pagingItems: LazyPagingItems<Episode>,
     onEpisodeClicked: (String, List<Int>) -> Unit,
     onPullToRefresh: () -> Unit,
     modifier: Modifier = Modifier
@@ -52,9 +51,9 @@ fun EpisodesListScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = episodes.loadState) {
-        if (episodes.loadState.refresh is LoadState.Error) {
-            val errorMessage = when ((episodes.loadState.refresh as LoadState.Error).error) {
+    LaunchedEffect(key1 = pagingItems.loadState) {
+        if (pagingItems.loadState.refresh is LoadState.Error) {
+            val errorMessage = when ((pagingItems.loadState.refresh as LoadState.Error).error) {
                 is HttpException -> "There was an HTTP issue"
                 else -> "There was an unknown error"
             }
@@ -78,43 +77,41 @@ fun EpisodesListScreen(
         },
     ) { innerPadding ->
         PullToRefreshBox(
-            isRefreshing = episodes.loadState.refresh is LoadState.Loading,
+            isRefreshing = pagingItems.loadState.refresh is LoadState.Loading,
             onRefresh = { onPullToRefresh() },
             modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Box {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(
-                        count = episodes.itemCount,
-                        key = episodes.itemKey { it.id }
-                    ) { index ->
-                        episodes[index]?.let {
-                            EpisodeItem(
-                                episode = it,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 10.dp)
-                                    .clickable(
-                                        onClick = {
-                                            onEpisodeClicked(it.name, it.characters)
-                                        }
-                                    )
-                            )
-                        }
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(
+                    count = pagingItems.itemCount,
+                    key = pagingItems.itemKey { it.id }
+                ) { index ->
+                    pagingItems[index]?.let {
+                        EpisodeItem(
+                            episode = it,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp)
+                                .clickable(
+                                    onClick = {
+                                        onEpisodeClicked(it.name, it.characters)
+                                    }
+                                )
+                        )
                     }
-                    item {
-                        if (episodes.loadState.append is LoadState.Loading) {
-                            CircularProgressIndicator()
-                        }
-                        if (episodes.loadState.append.endOfPaginationReached) {
-                            EndWarning()
-                        }
+                }
+                item {
+                    if (pagingItems.loadState.append is LoadState.Loading) {
+                        CircularProgressIndicator()
+                    }
+                    if (pagingItems.loadState.append.endOfPaginationReached) {
+                        EndWarning()
                     }
                 }
             }
@@ -154,7 +151,7 @@ fun EpisodesListPreview() {
     RickAndMortyTheme {
 
         EpisodesListScreen(
-            episodes = fakeDataFlow.collectAsLazyPagingItems(),
+            pagingItems = fakeDataFlow.collectAsLazyPagingItems(),
             onEpisodeClicked = { _, _ -> },
             onPullToRefresh = {}
         )

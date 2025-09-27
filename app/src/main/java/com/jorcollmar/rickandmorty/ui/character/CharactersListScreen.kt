@@ -2,7 +2,6 @@ package com.jorcollmar.rickandmorty.ui.character
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +37,7 @@ fun CharactersListScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -55,42 +54,36 @@ fun CharactersListScreen(
                 },
                 title = { Text(episodeName) },
                 scrollBehavior = scrollBehavior
-
             )
         },
     ) { innerPadding ->
-        Box(
-            modifier = modifier
+        LazyColumn(
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .then(Modifier.padding(horizontal = 5.dp)),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 10.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(
-                    count = characterIds.size,
-                    key = { characterIds[it] }
-                ) { index ->
-                    Card(
-                        modifier = Modifier
-                            .clickable(
-                                onClick = { onCharacterClicked(characterIds[index]) }
-                            )
-                    ) {
-                        val text =
-                            "${stringResource(R.string.character_list_character_label)} ${characterIds[index]}"
-
-                        Text(
-                            text = text,
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .fillMaxWidth()
+            items(
+                count = characterIds.size,
+                key = { characterIds[it] }
+            ) { index ->
+                Card(
+                    modifier = Modifier
+                        .clickable(
+                            onClick = { onCharacterClicked(characterIds[index]) }
                         )
-                    }
+                ) {
+                    val text =
+                        "${stringResource(R.string.character_list_character_label)} ${characterIds[index]}"
+
+                    Text(
+                        text = text,
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .fillMaxWidth()
+                    )
                 }
             }
         }

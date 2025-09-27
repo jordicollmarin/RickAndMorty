@@ -65,7 +65,11 @@ object AppModule {
         rickAndMortyApi: RickAndMortyApi
     ): Pager<Int, EpisodeEntity> {
         return Pager(
-            config = androidx.paging.PagingConfig(pageSize = 20),
+            config = androidx.paging.PagingConfig(
+                pageSize = 5,
+                prefetchDistance = 0,
+                initialLoadSize = 8
+            ),
             remoteMediator = RickAndMortyRemoteMediator(
                 rickAndMortyApi,
                 rickAndMortyDatabase

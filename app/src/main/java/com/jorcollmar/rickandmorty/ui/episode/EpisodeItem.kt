@@ -3,8 +3,6 @@ package com.jorcollmar.rickandmorty.ui.episode
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.jorcollmar.rickandmorty.R
 import com.jorcollmar.rickandmorty.domain.model.Episode
 import com.jorcollmar.rickandmorty.ui.theme.RickAndMortyTheme
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 private const val AIR_DATE_FORMAT = "dd/MM/yyyy"
@@ -33,30 +30,24 @@ fun EpisodeItem(
     modifier: Modifier = Modifier
 ) {
     Card(modifier = modifier) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)
-                .padding(10.dp)
+                .padding(10.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = Modifier
-                    .weight(3f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                val title by remember { mutableStateOf("${episode.code} - ${episode.name}") }
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Text(
-                    text = episode.airDate?.format(
-                        DateTimeFormatter.ofPattern(AIR_DATE_FORMAT)
-                    ) ?: stringResource(R.string.episodes_list_air_date_not_available),
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
+            val title by remember { mutableStateOf("${episode.code} - ${episode.name}") }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = episode.airDate?.format(
+                    DateTimeFormatter.ofPattern(AIR_DATE_FORMAT)
+                ) ?: stringResource(R.string.episodes_list_air_date_not_available),
+                style = MaterialTheme.typography.bodySmall,
+            )
         }
     }
 }

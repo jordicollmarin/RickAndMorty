@@ -123,47 +123,42 @@ fun CharacterDetailsScreen(
                     )
                 },
             ) { innerPadding ->
-                Box(
-                    modifier = modifier
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
-                        .padding(innerPadding)
+                        .padding(innerPadding),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CharacterImage(
-                            characterImageUrl = character.imageUrl,
-                            modifier = modifier.size(IMAGE_SIZE.dp, IMAGE_SIZE.dp)
-                        )
-                        Text(
-                            modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
-                            text = character.status,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        Text(
-                            modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
-                            text = character.species,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        Text(
-                            modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
-                            text = character.originName,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        Text(
-                            modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
-                            text = pluralStringResource(
-                                R.plurals.character_details_episodes_count,
-                                character.appearanceCount,
-                                character.appearanceCount
-                            ),
-                            style = MaterialTheme.typography.bodySmall,
-                        )
-                    }
+                    CharacterImage(
+                        characterImageUrl = character.imageUrl,
+                        modifier = modifier.size(IMAGE_SIZE.dp, IMAGE_SIZE.dp)
+                    )
+                    Text(
+                        modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
+                        text = character.status,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
+                        text = character.species,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
+                        text = character.originName,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        modifier = Modifier.padding(vertical = INFORMATION_PADDING.dp),
+                        text = pluralStringResource(
+                            R.plurals.character_details_episodes_count,
+                            character.appearanceCount,
+                            character.appearanceCount
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
         }

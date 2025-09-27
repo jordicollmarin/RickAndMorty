@@ -51,7 +51,7 @@ fun RickAndMortyScreen(
             route = RickAndMortyRouter.EpisodesList.name
         ) {
             EpisodesListScreen(
-                episodes = episodes,
+                pagingItems = episodes,
                 onEpisodeClicked = viewModel::onEpisodeClicked,
                 onPullToRefresh = viewModel::onPullToRefresh
             )
