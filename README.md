@@ -40,7 +40,7 @@ The Mobile App is easy to use and enables users to:
 
 ## Future
 * Share the details of each characters by exporting it in a .txt file.
-* Review the paging approach to load page by page.
+* Add a timestamp to show the last time the list was refreshed.
 * Add unit tests for `EpisodeRepository`.
 * Add unit tests for `RickAndMortyViewModel`.
 * Add unit tests for `RickAndMortyRemoteMediator`.
@@ -49,7 +49,6 @@ The Mobile App is easy to use and enables users to:
 * Add a UI test using `testTag` from Compose to check that the 'end of episodes' message is shown at the end of the list of Episodes when all have been loaded.
 * Add a UI tests using `testTag` from Compose to check the error and loading states for the `EpisodesListScreen` and `CharacterDetailsScreen`.
 * Add a UI test using `testTag` from Compose to check that the Character information shows when loading the `CharacterDetailsScreen`.
-* Add a timestamp to show the last time the list was refreshed.
 
 ## Installation
 Clone this repository and import into **Android Studio**
