@@ -21,6 +21,7 @@ The Mobile App is easy to use and enables users to:
 * See the full list of episodes of Rick and Morty showing the `name`, `air date` and the `code of the episode`. Once all the episodes are loaded, a message will be shown.
 * Get the list of characters of an episode when tapping on it.
 * See the details of each character when tapping on it. The information shown is an `image`, the `name`, the `status`, the `species`, the `name of the origin` and the `total number of episodes` the character appears in.
+* Export the details of a character when tapping on the share icon in the `TopAppBar` of the Character details screen.
 * `Pull to refresh` is implemented to refresh the list of Episodes.
 * Rotation of the device is supported.
 
