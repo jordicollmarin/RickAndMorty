@@ -24,7 +24,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -138,7 +137,7 @@ fun EndWarning() {
     Card(
         modifier = Modifier.padding(horizontal = 10.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Yellow
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Text(

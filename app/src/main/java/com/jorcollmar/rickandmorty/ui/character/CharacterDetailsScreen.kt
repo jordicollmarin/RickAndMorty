@@ -126,7 +126,7 @@ fun CharacterDetailsScreen(
                                     onExportCharacterClick(character)
                                 }
                             ) {
-                                Image(
+                                Icon(
                                     painter = painterResource(R.drawable.baseline_share_24),
                                     contentDescription = stringResource(R.string.character_details_share_character_details)
                                 )
